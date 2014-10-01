@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$USER_HOME$/Downloads/FanFootHelperWeb/target/classes" />
+    <output-test url="file://$USER_HOME$/Downloads/FanFootHelperWeb/target/test-classes" />
+    <content url="file://$USER_HOME$/Downloads/FanFootHelperWeb">
+      <sourceFolder url="file://$USER_HOME$/Downloads/FanFootHelperWeb/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/Downloads/FanFootHelperWeb/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$USER_HOME$/Downloads/FanFootHelperWeb/src/main/resources" type="java-resource" />
+      <excludeFolder url="file://$USER_HOME$/Downloads/FanFootHelperWeb/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.8.5" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-core-asl:1.8.5" level="project" />
+    <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.5" level="project" />
+  </component>
+</module>
+
