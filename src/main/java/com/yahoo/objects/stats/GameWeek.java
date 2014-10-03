@@ -4,9 +4,7 @@
  */
 package com.yahoo.objects.stats;
 
-import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,8 +16,7 @@ import java.util.logging.Logger;
  *
  * @author cedric
  */
-@Entity
-@Table(name = "GameWeek")
+
 
 public class GameWeek implements Serializable
 {
@@ -31,7 +28,6 @@ public class GameWeek implements Serializable
     private Date endDate;
     private int id;
 
-    @Column(name = "week", length=3, nullable=false)
     public String getWeek()
     {
         return week;
@@ -42,8 +38,6 @@ public class GameWeek implements Serializable
          Integer.parseInt(week);
     }
 
-    @Column(name = "startDate", nullable=false)
-    @Temporal(javax.persistence.TemporalType.DATE)
     public Date getStartDate() {
         return startDate;
     }
@@ -62,8 +56,6 @@ public class GameWeek implements Serializable
     }
   
 
-    @Column(name = "endDate",  nullable=false)
-    @Temporal(javax.persistence.TemporalType.DATE)
     public Date getEndDate() {
         return endDate;
     }
@@ -83,7 +75,6 @@ public class GameWeek implements Serializable
     }
   
 
-   @Column(name = "season", length=4, nullable=false)
     public String getYear()
    {
         return year;
@@ -94,11 +85,7 @@ public class GameWeek implements Serializable
         this.year = year;
     }
 
-    @Id
-    @GeneratedValue(generator = "generator")
-    @GenericGenerator(name = "generator", strategy = "increment")
-    @Column(name = "gameweekid", nullable=false)
-    public int getId() 
+    public int getId()
     {
         return id;
     }

@@ -4,17 +4,13 @@
  */
 package com.yahoo.objects.players;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
 import java.io.Serializable;
 
 /**
  *
  * @author cedric
  */
-@Entity
-@Table(name = "PlayerPic")
+
 public class PlayerPic implements Serializable
 {
     
@@ -22,10 +18,6 @@ public class PlayerPic implements Serializable
     private String url;
     private String size;
 
-    @Id
-    @GeneratedValue(generator = "generator")
-    @GenericGenerator(name = "generator", strategy = "increment")
-    @Column(name = "player_pic_id", nullable=false)
     public int getId() {
         return id;
     }
@@ -34,7 +26,6 @@ public class PlayerPic implements Serializable
         this.id = id;
     }
 
-    @Column(name = "url",length=1000, nullable=false)
     public String getUrl() {
         return url;
     }
@@ -43,7 +34,6 @@ public class PlayerPic implements Serializable
         this.url = url;
     }
    
-    @Column(name = "pic_size",length=1000, nullable=false)
     public String getSize() {
         return size;
     }

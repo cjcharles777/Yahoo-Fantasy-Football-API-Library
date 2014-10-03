@@ -4,18 +4,14 @@
  */
 package com.yahoo.objects.stats;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
-import javax.persistence.*;
 import java.util.List;
 
 /**
  *
  * @author cedric
  */
-@Entity
-@Table(name = "WeeklyStat")
+
 public class WeeklyStat 
 {
    private int id;
@@ -24,9 +20,6 @@ public class WeeklyStat
     List<Stat> stats;
 
     
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "weekly_stat_id", nullable=false)
     public int getId() {
         return id;
     }
@@ -35,7 +28,6 @@ public class WeeklyStat
         this.id = id;
     }
     
-    @Column(name = "week", length=4, nullable=false)
     public String getWeek()
     {
         return week;
@@ -45,13 +37,6 @@ public class WeeklyStat
         this.week = season;
     }
 
-    @OneToMany( cascade = {CascadeType.ALL})
-    @JoinTable(
-            name="WeeklyStatsToStats",
-            joinColumns = @JoinColumn( name="weekly_stat_id"),
-            inverseJoinColumns = @JoinColumn( name="table_stat_id")
-    )
-    @LazyCollection(LazyCollectionOption.FALSE)
     public List<Stat> getStats() {
         return stats;
     }

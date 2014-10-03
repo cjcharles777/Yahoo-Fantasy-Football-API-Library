@@ -4,18 +4,14 @@
  */
 package com.yahoo.objects.stats;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
-import javax.persistence.*;
 import java.util.List;
 
 /**
  *
  * @author DMDD
  */
-@Entity
-@Table(name = "SeasonStat")
+
 public class SeasonStat 
 {
     private int id;
@@ -23,9 +19,7 @@ public class SeasonStat
     List<Stat> stats;
 
     
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "season_stat_id", nullable=false)
+
     public int getId() {
         return id;
     }
@@ -34,7 +28,6 @@ public class SeasonStat
         this.id = id;
     }
     
-    @Column(name = "SEASON", length=4, nullable=false)
     public String getSeason()
     {
         return season;
@@ -44,13 +37,6 @@ public class SeasonStat
         this.season = season;
     }
 
-    @OneToMany( cascade = {CascadeType.ALL})
-    @JoinTable(
-            name="SeasonStatsToStats",
-            joinColumns = @JoinColumn( name="season_stat_id"),
-            inverseJoinColumns = @JoinColumn( name="table_stat_id")
-    )
-    @LazyCollection(LazyCollectionOption.FALSE)
     public List<Stat> getStats() {
         return stats;
     }

@@ -4,9 +4,6 @@
  */
 package com.yahoo.objects.league;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
 
 /**
  *
@@ -17,6 +14,7 @@ public class League
      private int id;
      private String league_key;
      private String league_id;
+     private String league_chat_id;
      private String name;
      private String url;
      private String draft_status;
@@ -34,6 +32,10 @@ public class League
      private String is_finished;
      private String start_date;
      private String end_date;
+     private String renew;
+     private String renewed;
+     private String short_invitation_url;
+    private String  password;
      
 
     public int getId() {
@@ -204,6 +206,46 @@ public class League
 
     public void setEnd_date(String end_date) {
         this.end_date = end_date;
+    }
+
+    public String getLeague_chat_id() {
+        return league_chat_id;
+    }
+
+    public void setLeague_chat_id(String league_chat_id) {
+        this.league_chat_id = league_chat_id;
+    }
+
+    public String getRenew() {
+        return renew;
+    }
+
+    public void setRenew(String renew) {
+        this.renew = renew;
+    }
+
+    public String getRenewed() {
+        return renewed;
+    }
+
+    public void setRenewed(String renewed) {
+        this.renewed = renewed;
+    }
+
+    public String getShort_invitation_url() {
+        return short_invitation_url;
+    }
+
+    public void setShort_invitation_url(String short_invitation_url) {
+        this.short_invitation_url = short_invitation_url;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

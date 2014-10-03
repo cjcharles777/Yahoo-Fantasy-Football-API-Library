@@ -4,9 +4,7 @@
  */
 package com.yahoo.objects.players;
 
-import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -14,19 +12,13 @@ import java.io.Serializable;
  * @author cedric
  */
 
-@Entity
-@Table(name = "Position")
 public class Position implements Serializable
 {
     private String position;
     private int id;
     
     
-    @Id
-    @GeneratedValue(generator = "generator")
-    @GenericGenerator(name = "generator", strategy = "increment")
-    @Column(name = "position_id", nullable=false)
-    public int getId() 
+    public int getId()
     {
         return id;
     }
@@ -35,7 +27,6 @@ public class Position implements Serializable
         this.id = id;
     }
 
-    @Column(name = "position", length=500, nullable=false, unique=false)
     public String getPosition() {
         return position;
     }

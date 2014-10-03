@@ -4,8 +4,9 @@
  */
 package com.yahoo.objects.draft;
 
-import cdiddy.objects.Player;
-import cdiddy.objects.Team;
+
+import com.yahoo.objects.players.Player;
+import com.yahoo.objects.team.Team;
 
 /**
  *

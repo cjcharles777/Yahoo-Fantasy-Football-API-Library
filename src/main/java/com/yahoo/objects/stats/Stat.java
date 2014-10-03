@@ -4,15 +4,14 @@
  */
 package com.yahoo.objects.stats;
 
-import javax.persistence.*;
+
 
 /**
  *
  * @author DMDD
  */
 
-@Entity
-@Table(name = "Stat")
+
 public class Stat 
 {
     private int table_stat_id;
@@ -20,9 +19,7 @@ public class Stat
     private Double value;
 
     
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "table_stat_id", nullable=false)
+
     public int getTable_stat_id() {
         return table_stat_id;
     }
@@ -32,7 +29,7 @@ public class Stat
     }
 
  
-    @Column(name = "stat_id", length=4, nullable=false)
+
     public String getStat_id() {
         return stat_id;
     }
@@ -41,7 +38,7 @@ public class Stat
         this.stat_id = stat_id;
     }
 
-    @Column(name = "value", nullable=false)
+
     public Double getValue() {
         return value;
     }

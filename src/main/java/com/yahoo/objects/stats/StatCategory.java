@@ -6,7 +6,7 @@ package com.yahoo.objects.stats;
 
 import com.yahoo.objects.players.PositionType;
 
-import javax.persistence.*;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -14,8 +14,6 @@ import java.util.List;
  *
  * @author cedric
  */
-@Entity
-@Table(name = "StatCategories")
 public class StatCategory implements Serializable
 {
     private int stat_id;
@@ -24,8 +22,6 @@ public class StatCategory implements Serializable
     private String sort_order;
     private List<PositionType> position_types;
 
-    @Id
-    @Column(name = "statid", length=5, nullable=false)
     public int getStat_id() {
         return stat_id;
     }
@@ -34,7 +30,6 @@ public class StatCategory implements Serializable
         this.stat_id = stat_id;
     }
     
-    @Column(name = "name", length=100, nullable=false)
     public String getName() {
         return name;
     }
@@ -43,7 +38,6 @@ public class StatCategory implements Serializable
         this.name = name;
     }
     
-    @Column(name = "displayname", length=100, nullable=false)
     public String getDisplay_name() {
         return display_name;
     }
@@ -52,7 +46,6 @@ public class StatCategory implements Serializable
         this.display_name = display_name;
     }
 
-    @Column(name = "sortorder", length=100, nullable=false)
     public String getSort_order() {
         return sort_order;
     }
@@ -61,12 +54,7 @@ public class StatCategory implements Serializable
         this.sort_order = sort_order;
     }
     
-    @ManyToMany( cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
-    @JoinTable(
-            name="StatCategoriesPosition",
-            joinColumns = @JoinColumn( name="statid"),
-            inverseJoinColumns = @JoinColumn( name="positiontype")
-    )
+
     public List<PositionType> getPosition_types() {
         return position_types;
     }
