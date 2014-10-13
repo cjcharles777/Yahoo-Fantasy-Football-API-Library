@@ -30,10 +30,21 @@ public class LeagueSettings
       private String can_trade_draft_picks;
       private String max_teams;
       private String draft_time;
-      
+      private String persistent_url;
+      private String uses_roster_import;
+      private String roster_import_deadline;
+      private String waiver_type;
+      private String post_draft_players;
+      private String cant_cut_list;
+      private String pickem_enabled;
+      private String uses_fractional_points;
+      private String uses_negative_points;
+
+
       private LeagueRosterPositionList roster_positions;
-      private LeaugeStatCategories stat_categories;
+      private LeagueStatCategories stat_categories;
       private LeagueStatModifier stat_modifiers;
+
 
     public String getDraft_type() {
         return draft_type;
@@ -187,11 +198,11 @@ public class LeagueSettings
         this.roster_positions = roster_positions;
     }
 
-    public LeaugeStatCategories getStat_categories() {
+    public LeagueStatCategories getStat_categories() {
         return stat_categories;
     }
 
-    public void setStat_categories(LeaugeStatCategories stat_categories) {
+    public void setStat_categories(LeagueStatCategories stat_categories) {
         this.stat_categories = stat_categories;
     }
 
@@ -218,7 +229,79 @@ public class LeagueSettings
     public void setDraft_time(String draft_time) {
         this.draft_time = draft_time;
     }
-      
-    
-      
+
+    public String getPersistent_url() {
+        return persistent_url;
+    }
+
+    public void setPersistent_url(String persistent_url) {
+        this.persistent_url = persistent_url;
+    }
+
+    public String getUses_roster_import() {
+        return uses_roster_import;
+    }
+
+    public void setUses_roster_import(String uses_roster_import) {
+        this.uses_roster_import = uses_roster_import;
+    }
+
+    public String getRoster_import_deadline() {
+        return roster_import_deadline;
+    }
+
+    public void setRoster_import_deadline(String roster_import_deadline) {
+        this.roster_import_deadline = roster_import_deadline;
+    }
+
+    public String getWaiver_type() {
+        return waiver_type;
+    }
+
+    public void setWaiver_type(String waiver_type) {
+        this.waiver_type = waiver_type;
+    }
+
+    public String getPost_draft_players() {
+        return post_draft_players;
+    }
+
+    public void setPost_draft_players(String post_draft_players) {
+        this.post_draft_players = post_draft_players;
+    }
+
+    public String getCant_cut_list() {
+        return cant_cut_list;
+    }
+
+    public void setCant_cut_list(String cant_cut_list) {
+        this.cant_cut_list = cant_cut_list;
+    }
+
+    public String getPickem_enabled() {
+        return pickem_enabled;
+    }
+
+
+    public void setPickem_enabled(String pickem_enabled) {
+        this.pickem_enabled = pickem_enabled;
+
+    }
+
+    public String getUses_fractional_points()
+    {
+        return uses_fractional_points;
+    }
+
+    public void setUses_fractional_points(String uses_fractional_points) {
+        this.uses_fractional_points = uses_fractional_points;
+    }
+
+    public String getUses_negative_points() {
+        return uses_negative_points;
+    }
+
+    public void setUses_negative_points(String uses_negative_points) {
+        this.uses_negative_points = uses_negative_points;
+    }
 }

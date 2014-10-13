@@ -1,9 +1,18 @@
 import com.yahoo.objects.api.YahooApiInfo;
 import com.yahoo.objects.league.League;
+import com.yahoo.objects.league.LeagueSettings;
+import com.yahoo.objects.league.LeagueStatCategories;
+import com.yahoo.objects.league.StatCategory;
+import com.yahoo.objects.players.Player;
+import com.yahoo.objects.stats.SeasonStat;
+import com.yahoo.objects.stats.Stat;
+import com.yahoo.objects.stats.StatsList;
+import com.yahoo.objects.team.Roster;
 import com.yahoo.objects.team.Team;
 import com.yahoo.objects.team.TeamStandings;
-import com.yahoo.services.GameService;
+import com.yahoo.objects.team.WeekRosterPlayers;
 import com.yahoo.services.LeagueService;
+import com.yahoo.services.PlayerService;
 import com.yahoo.services.TeamService;
 import com.yahoo.utils.oauth.OAuthConnection;
 import com.yahoo.utils.yql.YQLQueryUtil;
@@ -43,21 +52,50 @@ public class Demo
                 YQLQueryUtil yqlQueryUtil = new YQLQueryUtil(oAuthConn, info);
 
                 LeagueService gameService = new LeagueService(yqlQueryUtil);
+                TeamService teamService = new TeamService(yqlQueryUtil);
+                PlayerService playerService = new PlayerService(yqlQueryUtil);
+
                 List<League> leagues = gameService.getUserLeagues("nfl");
                 for(League league : leagues)
                 {
                     System.out.println(league.toString());
                 }
                 League testLeauge = leagues.get(0);
-                TeamService teamService = new TeamService(yqlQueryUtil);
+
                 List<Team> teamList = teamService.getLeagueTeams(testLeauge.getLeague_key());
                 Map<String, TeamStandings> standingsMap = gameService.getLeagueStandings(testLeauge.getLeague_key());
+                LeagueSettings demoLeagueSettings = gameService.getLeagueSettings(testLeauge.getLeague_key());
 
                 for(Team team : teamList)
                 {
                     TeamStandings standings = standingsMap.get(team.getTeam_key());
                     System.out.println(team.getName() + "\t Rank:" + standings.getRank());
                 }
+
+                Team demoTeam = teamList.get(0);
+
+                Roster demoRoster = teamService.getTeamRoster(demoTeam.getTeam_key());
+                WeekRosterPlayers demoRosterPlayers = demoRoster.getPlayers();
+                List<Player> demoRosterPlayersList = demoRosterPlayers.getPlayer();
+                System.out.println("Roster of "+ demoTeam.getName());
+                for (Player p : demoRosterPlayersList)
+                {
+                    System.out.println(p.getName().getFull());
+                    SeasonStat demoSeasonStats = playerService.getPlayerSeasonStats(p.getPlayer_key(), testLeauge.getLeague_key());
+                    System.out.println("Stats for "+ p.getName().getFull());
+                    StatsList demoSeasonStatList = demoSeasonStats.getStats();
+                    LeagueStatCategories demoStatsCategories = demoLeagueSettings.getStat_categories();
+                    Map<String, StatCategory> demoStatCategoryMap = demoStatsCategories.getStats().getStatCategoryMap();
+                    for (Stat s : demoSeasonStatList.getStat())
+                    {
+                        StatCategory category = demoStatCategoryMap.get(s.getStat_id());
+                        System.out.println(category.getDisplay_name() +" (StatID "+s.getStat_id() +") : "+ s.getValue());
+                    }
+                    System.out.println();
+                }
+
+
+
             }
         }
         catch (Exception e)

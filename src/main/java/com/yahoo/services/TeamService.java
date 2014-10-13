@@ -1,6 +1,8 @@
 package com.yahoo.services;
 
 import com.yahoo.objects.league.League;
+import com.yahoo.objects.players.Player;
+import com.yahoo.objects.team.Roster;
 import com.yahoo.objects.team.Team;
 import com.yahoo.utils.json.JacksonPojoMapper;
 import com.yahoo.utils.yql.YQLQueryUtil;
@@ -36,7 +38,7 @@ public class TeamService extends BaseService
         }
         catch(Exception e)
         {
-            Logger.getLogger(GameService.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(TeamService.class.getName()).log(Level.SEVERE, null, e);
         }
 
         return result;
@@ -58,7 +60,27 @@ public class TeamService extends BaseService
         }
         catch(Exception e)
         {
-            Logger.getLogger(GameService.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(TeamService.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        return result;
+    }
+    public Roster getTeamRoster (String teamKey)
+    {
+
+        Roster result = null;
+        String yql = "select * from fantasysports.teams.roster where team_key='" + teamKey + "'";
+        ObjectMapper mapper = new ObjectMapper();
+        try
+        {
+            Map<String, Object> results = performYQLQuery(yql); //result details
+            Map<String, Object> teamResultMap = (Map<String, Object>) results.get("team"); //result details
+            Map<String, Object> rosterMap = (Map<String, Object>) teamResultMap.get("roster");
+            return mapper.readValue(JacksonPojoMapper.toJson(rosterMap, false), Roster.class);
+        }
+        catch(Exception e)
+        {
+            Logger.getLogger(TeamService.class.getName()).log(Level.SEVERE, null, e);
         }
 
         return result;

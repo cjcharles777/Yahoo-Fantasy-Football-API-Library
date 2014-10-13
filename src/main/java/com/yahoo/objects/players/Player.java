@@ -41,6 +41,7 @@ package com.yahoo.objects.players;
      private String on_disabled_list;
      private List<SeasonStat> seasonStats;
      private List<WeeklyStat> weeklyStats;
+     private String injury_note;
 
 
 
@@ -226,6 +227,11 @@ package com.yahoo.objects.players;
          this.on_disabled_list = on_disabled_list;
      }
 
+     public String getInjury_note() {
+         return injury_note;
+     }
 
-
+     public void setInjury_note(String injury_note) {
+         this.injury_note = injury_note;
+     }
  }

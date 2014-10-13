@@ -15,6 +15,7 @@ public class Roster
 {
     private String coverage_type;
     private String week;
+    private String is_editable;
     private WeekRosterPlayers players;
 
     public String getCoverage_type() {
@@ -40,7 +41,12 @@ public class Roster
     public void setPlayers(WeekRosterPlayers players) {
         this.players = players;
     }
-    
-    
-    
+
+    public String getIs_editable() {
+        return is_editable;
+    }
+
+    public void setIs_editable(String is_editable) {
+        this.is_editable = is_editable;
+    }
 }

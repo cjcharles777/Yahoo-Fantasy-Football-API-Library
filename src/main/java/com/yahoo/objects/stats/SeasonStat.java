@@ -16,7 +16,8 @@ public class SeasonStat
 {
     private int id;
     private String season;
-    List<Stat> stats;
+    private String coverage_type;
+    StatsList stats;
 
     
 
@@ -37,12 +38,19 @@ public class SeasonStat
         this.season = season;
     }
 
-    public List<Stat> getStats() {
+    public StatsList getStats() {
         return stats;
     }
 
-    public void setStats(List<Stat> stats) {
+    public void setStats(StatsList stats) {
         this.stats = stats;
     }
-    
+
+    public String getCoverage_type() {
+        return coverage_type;
+    }
+
+    public void setCoverage_type(String coverage_type) {
+        this.coverage_type = coverage_type;
+    }
 }

@@ -4,7 +4,9 @@
  */
 package com.yahoo.objects.league;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -21,6 +23,14 @@ public class StatCategoriesObj
     public void setStat(List<StatCategory> stat) {
         this.stat = stat;
     }
-    
-    
+
+    public Map<String, StatCategory> getStatCategoryMap()
+    {
+        Map<String, StatCategory> result = new HashMap<String, StatCategory>();
+        for(StatCategory tempStatCategory : stat)
+        {
+            result.put(tempStatCategory.getStat_id(), tempStatCategory);
+        }
+        return result;
+    }
 }

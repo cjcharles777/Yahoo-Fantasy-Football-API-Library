@@ -8,7 +8,7 @@ package com.yahoo.objects.league;
  *
  * @author cedric
  */
-public class LeaugeStatCategories
+public class LeagueStatCategories
 {
     private StatCategoriesObj stats;
 
@@ -20,5 +20,5 @@ public class LeaugeStatCategories
         this.stats = stats;
     }
     
-    
+
 }
