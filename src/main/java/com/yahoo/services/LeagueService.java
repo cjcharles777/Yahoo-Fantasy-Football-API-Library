@@ -1,8 +1,11 @@
 package com.yahoo.services;
 
-import com.yahoo.exceptions.BadQueryException;
 import com.yahoo.objects.league.League;
 import com.yahoo.objects.league.LeagueSettings;
+import com.yahoo.objects.league.transactions.LeagueTransaction;
+import com.yahoo.objects.league.transactions.TransactionData;
+import com.yahoo.objects.league.transactions.TransactionPlayer;
+import com.yahoo.objects.league.transactions.TransactionPlayersList;
 import com.yahoo.objects.team.TeamStandings;
 import com.yahoo.utils.json.JacksonPojoMapper;
 import com.yahoo.utils.yql.YQLQueryUtil;
@@ -47,7 +50,7 @@ public class LeagueService extends BaseService
         }
         catch(Exception e)
         {
-            Logger.getLogger(GameService.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(LeagueService.class.getName()).log(Level.SEVERE, null, e);
         }
         return leagueListResults;
 
@@ -72,7 +75,7 @@ public class LeagueService extends BaseService
         }
         catch(Exception e)
         {
-            Logger.getLogger(GameService.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(LeagueService.class.getName()).log(Level.SEVERE, null, e);
         }
 
         return leagueListResults;
@@ -98,7 +101,7 @@ public class LeagueService extends BaseService
         }
         catch(Exception e)
         {
-            Logger.getLogger(GameService.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(LeagueService.class.getName()).log(Level.SEVERE, null, e);
         }
 
         return leagueListResults;
@@ -127,11 +130,55 @@ public class LeagueService extends BaseService
         }
         catch(Exception e)
         {
-            Logger.getLogger(GameService.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(LeagueService.class.getName()).log(Level.SEVERE, null, e);
         }
 
         return result;
     }
 
+    public List<LeagueTransaction> getLeagueTransactions(String leagueId)
+    {
+        String yql = "select * from fantasysports.leagues.transactions where league_key='"+leagueId+"'";
+        List<LeagueTransaction> result = new LinkedList<LeagueTransaction>();
+        try
+        {
+            ObjectMapper mapper = new ObjectMapper();
+            Map<String, Object> results = performYQLQuery(yql); //result details
+            Map leagueMap = (Map<String, Object>)results.get("league"); //result details
+            Map standingsMap = (Map<String, Object>)leagueMap.get("transactions"); //transactions yahoo object
+
+            List<Map<String, Object>> transactions = (List<Map<String, Object>>)standingsMap.get("transaction"); // teams yahoo list
+            for(Map<String, Object> transactionMap : transactions)
+            {
+                LeagueTransaction transaction = mapper.readValue(JacksonPojoMapper.toJson(transactionMap, false), LeagueTransaction.class);
+                List<TransactionPlayer> transactionPlayers = new LinkedList<TransactionPlayer>();
+                TransactionPlayersList playersList = transaction.getPlayers();
+                if(playersList != null) {
+                    if (Integer.parseInt(playersList.getCount()) > 1) {
+                        Map<String, Object> playersMap = (Map<String, Object>) transactionMap.get("players");
+                        List<Map<String, Object>> playerObjectList = (List<Map<String, Object>>) playersMap.get("player");
+                        for (Map<String, Object> playerObject : playerObjectList) {
+                            TransactionPlayer tmpPlayer = mapper.readValue(JacksonPojoMapper.toJson(playerObject, false), TransactionPlayer.class);
+                            transactionPlayers.add(tmpPlayer);
+                        }
+                    } else {
+                        Map<String, Object> playersMap = (Map<String, Object>) transactionMap.get("players");
+                        Map<String, Object> playerObject = (Map<String, Object>) playersMap.get("player");
+                        TransactionPlayer tmpPlayer = mapper.readValue(JacksonPojoMapper.toJson(playerObject, false), TransactionPlayer.class);
+                        transactionPlayers.add(tmpPlayer);
+                    }
+                    playersList.setPlayer(transactionPlayers);
+                }
+                result.add(transaction);
+            }
+            //return result;
+        }
+        catch(Exception e)
+        {
+            Logger.getLogger(LeagueService.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        return result;
+    }
 
 }

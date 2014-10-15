@@ -1,8 +1,7 @@
 import com.yahoo.objects.api.YahooApiInfo;
-import com.yahoo.objects.league.League;
-import com.yahoo.objects.league.LeagueSettings;
-import com.yahoo.objects.league.LeagueStatCategories;
-import com.yahoo.objects.league.StatCategory;
+import com.yahoo.objects.league.*;
+import com.yahoo.objects.league.transactions.LeagueTransaction;
+import com.yahoo.objects.league.transactions.TransactionPlayersList;
 import com.yahoo.objects.players.Player;
 import com.yahoo.objects.stats.SeasonStat;
 import com.yahoo.objects.stats.Stat;
@@ -93,8 +92,21 @@ public class Demo
                     }
                     System.out.println();
                 }
+                List<LeagueTransaction> transactions = gameService.getLeagueTransactions(testLeauge.getLeague_key());
+                for(LeagueTransaction transaction : transactions)
+                {
 
-
+                    System.out.println("Transaction "+ transaction.getTransaction_id()+ " is of " + transaction.getType()+" type that was "+ transaction.getStatus());
+                    if (transaction.getPlayers() != null && transaction.getPlayers().getPlayer().size()>0)
+                    {
+                        System.out.println("Players Involved in Transaction");
+                        TransactionPlayersList trxPlayers = transaction.getPlayers();
+                        for (Player p : trxPlayers.getPlayer())
+                        {
+                            System.out.println(p.getName().getFull());
+                        }
+                    }
+                }
 
             }
         }
