@@ -32,6 +32,7 @@ public class OAuthConnection
     private String oauthSessionHandle;
     private String apiKey;
     private String apiSecret;
+    private OAuthToken oAuthToken;
     boolean authorized = false;
 
  
@@ -40,12 +41,26 @@ public class OAuthConnection
     
     public OAuthConnection(YahooApiInfo info)
     {
+        initService(info);
+    }
+    public OAuthConnection(YahooApiInfo info, OAuthToken oAuthToken)
+    {
+        initService(info);
+        this.oAuthToken = oAuthToken;
+        accessToken = new Token (oAuthToken.getToken(),oAuthToken.getSecret());
+        verifier = new Verifier(oAuthToken.getVerifier());
+        oauthSessionHandle = oAuthToken.getSessionHandle();
+        authorized = true;
+    }
+
+    private void initService(YahooApiInfo info)
+    {
         //this.info = info;
         service = new ServiceBuilder()
-                           .provider(YahooApi.class)
-                           .apiKey(info.getApiKey())
-                           .apiSecret(info.getApiSecret())
-                           .build();
+                .provider(YahooApi.class)
+                .apiKey(info.getApiKey())
+                .apiSecret(info.getApiSecret())
+                .build();
     }
 
     public String retrieveAuthorizationUrl()
@@ -135,7 +150,7 @@ public class OAuthConnection
          temp.setToken(accessToken.getToken());
          temp.setSecret(accessToken.getSecret());
          temp.setSessionHandle(oauthSessionHandle);
-         //oauthDAOImpl.savePlayer(temp);
+         oAuthToken = temp;
          
     }
       
@@ -173,5 +188,13 @@ public class OAuthConnection
 
     public void setApiSecret(String apiSecret) {
         this.apiSecret = apiSecret;
+    }
+
+    public OAuthToken getoAuthToken() {
+        return oAuthToken;
+    }
+
+    public void setoAuthToken(OAuthToken oAuthToken) {
+        this.oAuthToken = oAuthToken;
     }
 }
