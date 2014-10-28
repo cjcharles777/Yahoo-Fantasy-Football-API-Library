@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.donkeigy</groupId>
+  <artifactId>yahoo-fantasy-football-api</artifactId>
+  <versioning>
+    <versions>
+      <version>1.0-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20141028161140</lastUpdated>
+  </versioning>
+</metadata>
