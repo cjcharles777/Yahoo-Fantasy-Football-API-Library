@@ -44,35 +44,44 @@ public class GameService
 
 
     
-    public DraftResults getDraftResults (String leagueid)
-    {
-            ObjectMapper mapper = new ObjectMapper();
-            Map<String,Object> userData;
-            Map<String,Object> results;
-            List<Map<String, Object>> draftList;
-            Map<String,Object> query;
-            DraftResults  leagueListResults = new DraftResults();
-            String yql = "select * from fantasysports.draftresults where league_key='"+leagueid+"'";
-            String response = yqlUitl.queryYQL(yql);
-            try
-            {
-                userData = mapper.readValue(response, Map.class);
-                query = (Map<String, Object>)userData.get("query"); // query details
-                results = (Map<String, Object>)query.get("results"); //result details
-                Map leauge = (Map<String, Object>)results.get("league"); //result details
-                Map map = (Map<String, Object>)leauge.get("draft_results"); //result details
-                DraftResults tempLeauge = mapper.readValue(JacksonPojoMapper.toJson(map, false) , DraftResults.class);
-                leagueListResults = tempLeauge;
 
-                
-               
-            }
-            catch(Exception e)
+
+    public List<GameWeek> retrieveGameWeeks()
+    {
+
+        List<GameWeek> result = null;
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String,Object> userData;
+        Map<String, List<Map<String, Object>>> params;
+        Map<String,Object> league;
+        boolean morePlayers = true;
+        int curr = 0;
+        String response2 = yqlUitl.getConn().requestData("http://fantasysports.yahooapis.com/fantasy/v2/game/nfl/game_weeks?format=json", Verb.GET);
+        try
+        {
+            userData = mapper.readValue(response2, Map.class);
+            params = (Map<String, List<Map<String, Object>>>)userData.get("fantasy_content");
+            Object game_weeks = ((Map<String, List<Map<String, Object>>>)params).get("game").get(1).get("game_weeks");
+            int count = ((Integer)((Map<String, Object> )game_weeks).get("count"));
+            int pos = 0;
+            while (pos<count)
             {
-                 Logger.getLogger(GameService.class.getName()).log(Level.SEVERE, null, e);
+                Map gameweek = ((Map<String, Map<String, Map>>)game_weeks).get(new Integer(pos).toString());
+                GameWeek tempweek = mapper.readValue(JacksonPojoMapper.toJson(gameweek.get("game_week"), false) , GameWeek.class);
+                if(result == null)
+                {
+                    result = new LinkedList<GameWeek>();
+                }
+                result.add(tempweek);
+                pos++;
             }
-             
-             return leagueListResults;
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(GameService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+
     }
 
     

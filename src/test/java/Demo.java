@@ -6,10 +6,7 @@ import com.yahoo.objects.players.Player;
 import com.yahoo.objects.stats.SeasonStat;
 import com.yahoo.objects.stats.Stat;
 import com.yahoo.objects.stats.StatsList;
-import com.yahoo.objects.team.Roster;
-import com.yahoo.objects.team.Team;
-import com.yahoo.objects.team.TeamStandings;
-import com.yahoo.objects.team.WeekRosterPlayers;
+import com.yahoo.objects.team.*;
 import com.yahoo.services.LeagueService;
 import com.yahoo.services.PlayerService;
 import com.yahoo.services.TeamService;
@@ -91,6 +88,14 @@ public class Demo
                         System.out.println(category.getDisplay_name() +" (StatID "+s.getStat_id() +") : "+ s.getValue());
                     }
                     System.out.println();
+                }
+                List<TeamStat> teamStats = teamService.getWeeklyTeamPointsForSeason(demoTeam.getTeam_key());
+                System.out.println("Team weekly points are:");
+                for(TeamStat teamStat : teamStats)
+                {
+                    System.out.println("Week : " + teamStat.getTeam_points().getWeek()+" Projected pts. : "+
+                            teamStat.getTeam_projected_points().getTotal()+" Actual pts. : "+
+                            teamStat.getTeam_points().getTotal());
                 }
                 List<LeagueTransaction> transactions = gameService.getLeagueTransactions(testLeauge.getLeague_key());
                 for(LeagueTransaction transaction : transactions)
