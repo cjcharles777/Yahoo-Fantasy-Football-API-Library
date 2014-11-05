@@ -97,6 +97,13 @@ public class Demo
                             teamStat.getTeam_projected_points().getTotal()+" Actual pts. : "+
                             teamStat.getTeam_points().getTotal());
                 }
+                List<RosterStats> rosterStatsList = teamService.getWeeklyTeamRosterPoints(demoTeam.getTeam_key(), 1);
+                for(RosterStats rosterStat : rosterStatsList)
+                {
+                    System.out.println("Week 1 Actual pts. for "+rosterStat.getPlayerKey()+ "("+
+                            rosterStat.getSelectedPosition() +") : "+
+                            rosterStat.getPlayerPoints());
+                }
                 List<LeagueTransaction> transactions = gameService.getLeagueTransactions(testLeauge.getLeague_key());
                 for(LeagueTransaction transaction : transactions)
                 {
