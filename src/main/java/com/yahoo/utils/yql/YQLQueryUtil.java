@@ -8,10 +8,15 @@ package com.yahoo.utils.yql;
 import com.simpleyql.Api;
 import com.simpleyql.ApiFactory;
 import com.simpleyql.QueryResult;
+import com.yahoo.dao.interfaces.YQLQueryDAO;
 import com.yahoo.objects.api.YahooApiInfo;
+import com.yahoo.objects.query.YQLQuery;
 import com.yahoo.utils.oauth.OAuthConnection;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,24 +25,35 @@ import java.util.logging.Logger;
  * @author cedric
  */
 
+@Repository("yqlQueryUtil")
 public class YQLQueryUtil 
 {
+    @Autowired
     private OAuthConnection conn;
-    private YahooApiInfo info;
+    @Autowired
+    private YQLQueryDAO yqlQueryDAO;
+
+    private Api api;
+
+
 
     private static final String AUTHDATA_SEPARATOR = "&";
 
-    public YQLQueryUtil(OAuthConnection conn, YahooApiInfo info) {
-        this.conn = conn;
-        this.info = info;
+    public YQLQueryUtil()
+    {
+
     }
 
+    public void init(YahooApiInfo info)
+    {
+        api = ApiFactory.getApiInstance(info.getApiKey(), info.getApiSecret(), null,true, null);
+    }
 
 
     
     public String queryYQL (String query)
     {
-         Api api = ApiFactory.getApiInstance(info.getApiKey(), info.getApiSecret(), null,true, null);
+
          
          
         try 
@@ -46,8 +62,19 @@ public class YQLQueryUtil
             {
                 Logger.getLogger(YQLQueryUtil.class.getName()).log(Level.SEVERE, query);
                 String authdata = conn.getAccessToken().getToken() + AUTHDATA_SEPARATOR+ conn. getAccessToken().getSecret() + AUTHDATA_SEPARATOR + conn.getOauthSessionHandle();
-                QueryResult qr = api.query(query, authdata);
-                return qr.getText();
+                YQLQuery attemptedQuery = new YQLQuery();
+                attemptedQuery.setQuery(query);
+                List<YQLQuery> results = yqlQueryDAO.retrieveQuerybyExample(attemptedQuery);
+                if(results.size()>0)
+                {
+                    return results.get(0).getResponse();
+                }
+                else
+                {
+                    QueryResult qr = api.query(query, authdata);
+                    return qr.getText();
+                }
+
             }
             else
             {

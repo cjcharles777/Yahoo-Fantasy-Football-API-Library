@@ -12,6 +12,7 @@ import org.scribe.builder.api.YahooApi;
 import org.scribe.exceptions.OAuthException;
 import org.scribe.model.*;
 import org.scribe.oauth.OAuthService;
+import org.springframework.stereotype.Repository;
 
 
 import java.util.List;
@@ -23,6 +24,7 @@ import java.util.logging.Logger;
  * @author cedric
  */
 
+@Repository("oauthConnection")
 public class OAuthConnection 
 {
     private OAuthService service;
@@ -39,21 +41,21 @@ public class OAuthConnection
 
     
     
-    public OAuthConnection(YahooApiInfo info)
+    public OAuthConnection()
     {
-        initService(info);
-    }
-    public OAuthConnection(YahooApiInfo info, OAuthToken oAuthToken)
-    {
-        initService(info);
-        this.oAuthToken = oAuthToken;
-        accessToken = new Token (oAuthToken.getToken(),oAuthToken.getSecret());
-        verifier = new Verifier(oAuthToken.getVerifier());
-        oauthSessionHandle = oAuthToken.getSessionHandle();
-        authorized = true;
-    }
 
-    private void initService(YahooApiInfo info)
+    }
+  //  public OAuthConnection(YahooApiInfo info, OAuthToken oAuthToken)
+  //  {
+ //       initService(info);
+  //      this.oAuthToken = oAuthToken;
+ //       accessToken = new Token (oAuthToken.getToken(),oAuthToken.getSecret());
+  //      verifier = new Verifier(oAuthToken.getVerifier());
+  //      oauthSessionHandle = oAuthToken.getSessionHandle();
+   //     authorized = true;
+   // }
+
+    public void initService(YahooApiInfo info)
     {
         //this.info = info;
         service = new ServiceBuilder()

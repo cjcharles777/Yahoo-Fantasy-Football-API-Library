@@ -1,3 +1,4 @@
+import com.yahoo.engine.YahooFantasyEngine;
 import com.yahoo.objects.api.YahooApiInfo;
 import com.yahoo.objects.league.*;
 import com.yahoo.objects.league.transactions.LeagueTransaction;
@@ -31,7 +32,10 @@ public class Demo
                 new YahooApiInfo("dj0yJmk9MWNNeHFyMVZneFdFJmQ9WVdrOVNqVm9hSGQ2TXpZbWNHbzlNVEU0TURVM09UYzJNZy0tJnM9Y29uc3VtZXJzZWNyZXQmeD0wYQ--",
                         "9e1bb2700b79696770c9c931b182bf12260eb4e6");
 
-        OAuthConnection oAuthConn =  new OAuthConnection(info);
+        //OAuthConnection oAuthConn =  new OAuthConnection();
+        //oAuthConn.initService(info);
+        YahooFantasyEngine engine = new YahooFantasyEngine(info);
+        OAuthConnection oAuthConn = YahooFantasyEngine.getoAuthConn();
         String requestUrl = oAuthConn.retrieveAuthorizationUrl();
 
         try
@@ -45,7 +49,7 @@ public class Demo
             String verifier =  br.readLine();
             if(oAuthConn.retrieveAccessToken(verifier))
             {
-                YQLQueryUtil yqlQueryUtil = new YQLQueryUtil(oAuthConn, info);
+                YQLQueryUtil yqlQueryUtil = YahooFantasyEngine.getYqlQueryUtil();
 
                 LeagueService gameService = new LeagueService(yqlQueryUtil);
                 TeamService teamService = new TeamService(yqlQueryUtil);
