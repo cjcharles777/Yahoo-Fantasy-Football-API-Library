@@ -5,6 +5,7 @@
 package com.yahoo.utils.oauth;
 
 
+import com.yahoo.dao.interfaces.OAuthDAO;
 import com.yahoo.objects.api.YahooApiInfo;
 import com.yahoo.objects.oauth.OAuthToken;
 import org.scribe.builder.ServiceBuilder;
@@ -12,6 +13,7 @@ import org.scribe.builder.api.YahooApi;
 import org.scribe.exceptions.OAuthException;
 import org.scribe.model.*;
 import org.scribe.oauth.OAuthService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 
@@ -37,9 +39,11 @@ public class OAuthConnection
     private OAuthToken oAuthToken;
     boolean authorized = false;
 
- 
 
-    
+
+
+    @Autowired
+    private OAuthDAO oauthDAOImpl;
     
     public OAuthConnection()
     {
@@ -64,6 +68,26 @@ public class OAuthConnection
                 .apiSecret(info.getApiSecret())
                 .build();
     }
+    public boolean connect()
+    {
+
+        List<OAuthToken> prevList = oauthDAOImpl.getAllOAuth();
+        if(prevList == null || prevList.isEmpty())
+        {
+            return false;
+
+        }
+        else
+        {
+            accessToken = new Token (prevList.get(0).getToken(),prevList.get(0).getSecret());
+            verifier = new Verifier(prevList.get(0).getVerifier());
+            oauthSessionHandle = prevList.get(0).getSessionHandle();
+            authorized = true;
+            return true;
+
+        }
+    }
+
 
     public String retrieveAuthorizationUrl()
     {
@@ -102,7 +126,7 @@ public class OAuthConnection
             temp.setToken(accessToken.getToken());
             temp.setSecret(accessToken.getSecret());
             temp.setSessionHandle(oauthSessionHandle);
-
+            oauthDAOImpl.saveOAuthToken(temp);
             authorized = true;
             return true;
          }
@@ -129,10 +153,10 @@ public class OAuthConnection
     
     public void refreshToken()
     {
-         //List<OAuthToken> prevList = oauthDAOImpl.getAllOAuth();
-         //String tempSessionHandle = prevList.get(0).getSessionHandle();
+         List<OAuthToken> prevList = oauthDAOImpl.getAllOAuth();
+         String tempSessionHandle = prevList.get(0).getSessionHandle();
          
-  //       connect();
+         connect();
          OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.login.yahoo.com/oauth/v2/get_token");
          request.addOAuthParameter("oauth_session_handle",oauthSessionHandle );
          service.signRequest(accessToken, request);
@@ -145,8 +169,8 @@ public class OAuthConnection
         } catch (IllegalAccessException ex) {
             Logger.getLogger(OAuthConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-         //accessToken = service.getAccessToken(accessToken, verifier);
-         //oauthDAOImpl.deleteOAuthToken(prevList.get(0));
+         accessToken = service.getAccessToken(accessToken, verifier);
+         oauthDAOImpl.deleteOAuthToken(prevList.get(0));
          OAuthToken temp = new OAuthToken();
          temp.setVerifier(verifier.getValue());
          temp.setToken(accessToken.getToken());

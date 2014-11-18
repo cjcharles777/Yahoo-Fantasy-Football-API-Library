@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 public class LeagueService extends BaseService
 {
 
-    public LeagueService(YQLQueryUtil yqlUitl)
+    protected LeagueService(YQLQueryUtil yqlUitl)
     {
         super(yqlUitl);
     }

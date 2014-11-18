@@ -14,6 +14,7 @@ public class LeagueTransaction
     private String trader_team_name;
     private String tradee_team_key;
     private String tradee_team_name;
+    private TransactionPickList picks;
     private TransactionPlayersList players;
 
     public String getTransaction_key() {
@@ -94,5 +95,13 @@ public class LeagueTransaction
 
     public void setTradee_team_name(String tradee_team_name) {
         this.tradee_team_name = tradee_team_name;
+    }
+
+    public TransactionPickList getPicks() {
+        return picks;
+    }
+
+    public void setPicks(TransactionPickList picks) {
+        this.picks = picks;
     }
 }

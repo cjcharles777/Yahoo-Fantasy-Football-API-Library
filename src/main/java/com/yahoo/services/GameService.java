@@ -29,7 +29,7 @@ import java.util.logging.Logger;
  */
 
 
-public class GameService 
+public class GameService extends BaseService
 {
     
 
@@ -37,8 +37,9 @@ public class GameService
 
     private YQLQueryUtil yqlUitl ;
 
-    public GameService(YQLQueryUtil yqlUitl) {
-
+    protected GameService(YQLQueryUtil yqlUitl)
+    {
+        super(yqlUitl);
         this.yqlUitl = yqlUitl;
     }
 

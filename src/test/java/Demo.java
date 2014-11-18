@@ -11,6 +11,8 @@ import com.yahoo.objects.team.*;
 import com.yahoo.services.LeagueService;
 import com.yahoo.services.PlayerService;
 import com.yahoo.services.TeamService;
+import com.yahoo.services.YahooServiceFactory;
+import com.yahoo.services.enums.ServiceType;
 import com.yahoo.utils.oauth.OAuthConnection;
 import com.yahoo.utils.yql.YQLQueryUtil;
 
@@ -36,24 +38,29 @@ public class Demo
         //oAuthConn.initService(info);
         YahooFantasyEngine engine = new YahooFantasyEngine(info);
         OAuthConnection oAuthConn = YahooFantasyEngine.getoAuthConn();
+        YahooServiceFactory factory = YahooFantasyEngine.getServiceFactory();
         String requestUrl = oAuthConn.retrieveAuthorizationUrl();
 
         try
         {
-            URI uri = new java.net.URI(requestUrl);
-            Desktop desktop = Desktop.getDesktop();
-            desktop.browse(uri);
-
-            System.out.println("Please type in verifier code:");
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            String verifier =  br.readLine();
-            if(oAuthConn.retrieveAccessToken(verifier))
+            if(!oAuthConn.connect())
             {
-                YQLQueryUtil yqlQueryUtil = YahooFantasyEngine.getYqlQueryUtil();
+                URI uri = new java.net.URI(requestUrl);
+                Desktop desktop = Desktop.getDesktop();
+                desktop.browse(uri);
 
-                LeagueService gameService = new LeagueService(yqlQueryUtil);
-                TeamService teamService = new TeamService(yqlQueryUtil);
-                PlayerService playerService = new PlayerService(yqlQueryUtil);
+                System.out.println("Please type in verifier code:");
+                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+                String verifier = br.readLine();
+                oAuthConn.retrieveAccessToken(verifier);
+            }
+            if(oAuthConn.isAuthorized())
+            {
+
+
+                LeagueService gameService = (LeagueService)factory.getService(ServiceType.LEAGUE);
+                TeamService teamService = (TeamService)factory.getService(ServiceType.TEAM);
+                PlayerService playerService = (PlayerService)factory.getService(ServiceType.PLAYER);
 
                 List<League> leagues = gameService.getUserLeagues("nfl");
                 for(League league : leagues)

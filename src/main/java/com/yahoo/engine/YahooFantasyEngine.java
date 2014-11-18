@@ -2,6 +2,7 @@ package com.yahoo.engine;
 
 import com.yahoo.objects.api.YahooApiInfo;
 import com.yahoo.objects.query.YQLQuery;
+import com.yahoo.services.YahooServiceFactory;
 import com.yahoo.utils.oauth.OAuthConnection;
 import com.yahoo.utils.yql.YQLQueryUtil;
 import org.springframework.context.ApplicationContext;
@@ -14,6 +15,7 @@ public class YahooFantasyEngine
 {
     private static YQLQueryUtil yqlQueryUtil;
     private static OAuthConnection oAuthConn;
+    private static  YahooServiceFactory factory;
 
     public YahooFantasyEngine(YahooApiInfo info)
     {
@@ -22,6 +24,8 @@ public class YahooFantasyEngine
         oAuthConn.initService(info);
         yqlQueryUtil = applicationContext.getBean(YQLQueryUtil.class);
         yqlQueryUtil.init(info);
+        factory = applicationContext.getBean(YahooServiceFactory.class);
+
     }
 
     public static YQLQueryUtil getYqlQueryUtil() {
@@ -30,5 +34,9 @@ public class YahooFantasyEngine
 
     public static OAuthConnection getoAuthConn() {
         return oAuthConn;
+    }
+
+    public static YahooServiceFactory getServiceFactory() {
+        return factory;
     }
 }

@@ -33,12 +33,13 @@
         <property name="dataSource">
             <ref bean="dataSource" />
         </property>
-        <property name="packagesToScan" value="com.yahoo.objects.query" />
+        <property name="packagesToScan" value="com.yahoo.objects.query,com.yahoo.objects.oauth" />
+
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">${jdbc.hibernate.dialect}</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
-                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.show_sql">true</prop>
             </props>
         </property>
     </bean>

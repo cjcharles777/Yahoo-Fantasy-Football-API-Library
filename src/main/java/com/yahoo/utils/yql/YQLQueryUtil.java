@@ -12,10 +12,12 @@ import com.yahoo.dao.interfaces.YQLQueryDAO;
 import com.yahoo.objects.api.YahooApiInfo;
 import com.yahoo.objects.query.YQLQuery;
 import com.yahoo.utils.oauth.OAuthConnection;
+import com.yahoo.utils.time.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,9 +51,12 @@ public class YQLQueryUtil
         api = ApiFactory.getApiInstance(info.getApiKey(), info.getApiSecret(), null,true, null);
     }
 
-
-    
     public String queryYQL (String query)
+    {
+        return queryYQL(query, 1);
+    }
+    
+    public String queryYQL (String query, int daysTilStale)
     {
 
          
@@ -65,13 +70,16 @@ public class YQLQueryUtil
                 YQLQuery attemptedQuery = new YQLQuery();
                 attemptedQuery.setQuery(query);
                 List<YQLQuery> results = yqlQueryDAO.retrieveQuerybyExample(attemptedQuery);
-                if(results.size()>0)
+                if(results.size()>0 && !TimeUtil.isDataStale(results.get(0).getCreated(),daysTilStale))
                 {
                     return results.get(0).getResponse();
                 }
                 else
                 {
                     QueryResult qr = api.query(query, authdata);
+                    attemptedQuery.setResponse(qr.getText());
+                    attemptedQuery.setCreated(new Date());
+                    yqlQueryDAO.saveQuery(attemptedQuery);
                     return qr.getText();
                 }
 

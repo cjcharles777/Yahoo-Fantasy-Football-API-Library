@@ -28,7 +28,7 @@ public class YQLQuery implements Serializable
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid")
-    @Column(name = "id", nullable=false, unique = true)
+    @Column(name = "query_id", nullable=false)
     public String getId() {
         return id;
     }
@@ -37,7 +37,7 @@ public class YQLQuery implements Serializable
         this.id = id;
     }
 
-    @Column(name = "yql_query", length=12500)
+    @Column(name = "yql_query", length=1250000)
     public String getQuery() {
         return query;
     }
@@ -46,7 +46,7 @@ public class YQLQuery implements Serializable
         this.query = query;
     }
 
-    @Column(name = "yql_response", length=12500)
+    @Column(name = "yql_response", length=1250000)
     public String getResponse() {
         return response;
     }
@@ -55,8 +55,8 @@ public class YQLQuery implements Serializable
         this.response = response;
     }
 
-    @Column
-    @Type(type="timestamp")
+    @Column(name = "created_time")
+    @Type(type = "timestamp")
     public Date getCreated() {
         return created;
     }

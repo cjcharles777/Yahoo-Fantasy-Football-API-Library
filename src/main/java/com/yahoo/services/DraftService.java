@@ -13,9 +13,9 @@ import java.util.logging.Logger;
 /**
  * Created by cedric on 10/29/14.
  */
-public class DraftService  extends BaseService
+ public class DraftService  extends BaseService
 {
-    public DraftService(YQLQueryUtil yqlUitl)
+    protected DraftService(YQLQueryUtil yqlUitl)
     {
         super(yqlUitl);
     }

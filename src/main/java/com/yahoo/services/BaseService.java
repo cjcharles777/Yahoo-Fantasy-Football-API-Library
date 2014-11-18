@@ -15,7 +15,7 @@ public class BaseService
 {
     private YQLQueryUtil yqlUitl ;
 
-    public BaseService(YQLQueryUtil yqlUitl)
+    protected BaseService(YQLQueryUtil yqlUitl)
     {
         this.yqlUitl = yqlUitl;
     }

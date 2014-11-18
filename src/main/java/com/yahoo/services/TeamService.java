@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 public class TeamService extends BaseService
 {
 
-    public TeamService(YQLQueryUtil yqlUitl) {
+    protected TeamService(YQLQueryUtil yqlUitl) {
         super(yqlUitl);
     }
 
