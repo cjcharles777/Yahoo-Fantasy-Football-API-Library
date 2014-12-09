@@ -39,6 +39,7 @@ public class LeagueSettings
       private String pickem_enabled;
       private String uses_fractional_points;
       private String uses_negative_points;
+      private String draft_pick_time;
 
 
       private LeagueRosterPositionList roster_positions;
@@ -303,5 +304,13 @@ public class LeagueSettings
 
     public void setUses_negative_points(String uses_negative_points) {
         this.uses_negative_points = uses_negative_points;
+    }
+
+    public String getDraft_pick_time() {
+        return draft_pick_time;
+    }
+
+    public void setDraft_pick_time(String draft_pick_time) {
+        this.draft_pick_time = draft_pick_time;
     }
 }

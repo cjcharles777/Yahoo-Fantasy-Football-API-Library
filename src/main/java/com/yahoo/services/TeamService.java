@@ -131,6 +131,22 @@ public class TeamService extends BaseService
                 temp.setSelectedPosition(selectedPositionMap.get("position"));
                 Map<String, String> playerPointsMap = ((Map<String, String>)playerMap.get("player_points"));
                 temp.setPlayerPoints(new BigDecimal(playerPointsMap.get("total")));
+                List<String> eligiblePosList = new LinkedList<String>();
+                Map<String, Object> eligiblePosMap = ((Map<String, Object>)playerMap.get("eligible_positions"));
+                Object eligiblePosObj = eligiblePosMap.get("position");
+                if(eligiblePosObj instanceof String)
+                {
+                    eligiblePosList.add((String)eligiblePosObj);
+                }
+                else if(eligiblePosObj instanceof List)
+                {
+                   List eligiblePosObjList = (List) eligiblePosObj;
+                    for (Object o : eligiblePosObjList)
+                    {
+                        eligiblePosList.add((String) o);
+                    }
+                }
+                temp.setEligiblePositions(eligiblePosList);
                 result.add(temp);
             }
         }
