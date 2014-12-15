@@ -15,7 +15,7 @@ package com.yahoo.objects.players;
   *
   * @author DMDD
   */
- @JsonIgnoreProperties({"eligible_positions", "selected_position"})
+ @JsonIgnoreProperties({"eligible_positions", "selected_position", "is_editable"})
  public class Player implements Serializable
  {
 

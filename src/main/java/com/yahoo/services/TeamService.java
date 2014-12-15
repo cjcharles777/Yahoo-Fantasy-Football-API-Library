@@ -68,11 +68,11 @@ public class TeamService extends BaseService
 
         return result;
     }
-    public Roster getTeamRoster (String teamKey)
+    public Roster getTeamRoster (String teamKey, int week)
     {
 
         Roster result = null;
-        String yql = "select * from fantasysports.teams.roster where team_key='" + teamKey + "'";
+        String yql = "select * from fantasysports.teams.roster where team_key='" + teamKey + "'  and week = '"+week+"'";
         ObjectMapper mapper = new ObjectMapper();
         try
         {
