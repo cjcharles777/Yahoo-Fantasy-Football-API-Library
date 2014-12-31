@@ -2,10 +2,7 @@ package com.yahoo.services;
 
 import com.yahoo.objects.league.League;
 import com.yahoo.objects.league.LeagueSettings;
-import com.yahoo.objects.league.transactions.LeagueTransaction;
-import com.yahoo.objects.league.transactions.TransactionData;
-import com.yahoo.objects.league.transactions.TransactionPlayer;
-import com.yahoo.objects.league.transactions.TransactionPlayersList;
+import com.yahoo.objects.league.transactions.*;
 import com.yahoo.objects.team.TeamStandings;
 import com.yahoo.utils.json.JacksonPojoMapper;
 import com.yahoo.utils.yql.YQLQueryUtil;
@@ -177,6 +174,14 @@ public class LeagueService extends BaseService
         {
             Logger.getLogger(LeagueService.class.getName()).log(Level.SEVERE, null, e);
         }
+
+        return result;
+    }
+
+    public LeagueScoreboard getWeeklyScoreBoard(String leagueId, int week)
+    {
+        String yql = "select * from fantasysports.leagues.scoreboard where league_key='"+leagueId+"' and week = '"+week+"'";
+        LeagueScoreboard result = new LeagueScoreboard();
 
         return result;
     }
