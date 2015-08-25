@@ -15,6 +15,8 @@ import java.util.List;
  */
 @Repository("oAuthDAO")
 public class OAuthDAOImpl implements OAuthDAO {
+
+
     private HibernateTemplate hibernateTemplate;
 
     @Autowired
