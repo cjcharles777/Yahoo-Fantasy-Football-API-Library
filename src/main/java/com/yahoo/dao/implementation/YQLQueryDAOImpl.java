@@ -6,7 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Example;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,7 +36,8 @@ public class YQLQueryDAOImpl implements YQLQueryDAO
     @Override
     public void saveQueries(List<YQLQuery> listN)
     {
-        hibernateTemplate.saveOrUpdateAll(listN);
+        for(YQLQuery n : listN)
+        hibernateTemplate.saveOrUpdate(n);
     }
 
     @Override
