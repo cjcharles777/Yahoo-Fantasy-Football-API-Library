@@ -68,6 +68,16 @@ public class OAuthConnection
                 .apiSecret(info.getApiSecret())
                 .build();
     }
+    public void initService(YahooApiInfo info, String callBackUrl)
+    {
+        //this.info = info;
+        service = new ServiceBuilder()
+                .provider(YahooApi.class)
+                .apiKey(info.getApiKey())
+                .apiSecret(info.getApiSecret())
+                .callback(callBackUrl)
+                .build();
+    }
     public boolean connect()
     {
 
