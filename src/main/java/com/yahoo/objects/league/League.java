@@ -36,6 +36,8 @@ public class League
      private String renewed;
      private String short_invitation_url;
     private String  password;
+    private String game_code;
+    private String season;
      
 
     public int getId() {
@@ -246,6 +248,22 @@ public class League
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getGame_code() {
+        return game_code;
+    }
+
+    public void setGame_code(String game_code) {
+        this.game_code = game_code;
+    }
+
+    public String getSeason() {
+        return season;
+    }
+
+    public void setSeason(String season) {
+        this.season = season;
     }
 
     @Override
