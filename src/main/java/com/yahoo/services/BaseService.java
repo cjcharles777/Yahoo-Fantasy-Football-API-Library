@@ -44,7 +44,14 @@ public class BaseService
 
 
     }
+    public String performYQLQueryString(String query)
+    {
 
+        String response = yqlUitl.queryYQL(query);
+        return response;
+
+
+    }
 
 
 }

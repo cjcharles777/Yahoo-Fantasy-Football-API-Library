@@ -1,11 +1,14 @@
 package com.yahoo.services;
 
+import com.google.gson.*;
 import com.yahoo.objects.players.Player;
 import com.yahoo.objects.stats.SeasonStat;
 import com.yahoo.utils.json.JacksonPojoMapper;
 import com.yahoo.utils.yql.YQLQueryUtil;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -59,5 +62,40 @@ public class PlayerService extends BaseService
         return result;
     }
 
+    public List<Player> retriveLeaugePlayers(String leagueid) {
+        Gson gson = new GsonBuilder().create();
 
+        JsonObject userData;
+        JsonObject results;
+        JsonArray playerList;
+        JsonObject query;
+        int start = 0;
+        boolean morePlayers = true;
+        List<Player> leaguePlayerResults = new LinkedList<Player>();
+
+        while (morePlayers) {
+            String yql = "select * from fantasysports.players where league_key='" + leagueid + "' and start=" + start;
+            String response = performYQLQueryString(yql);// yqlUitl.queryYQL(yql);
+            try {
+                userData = gson.fromJson(response, JsonObject.class).getAsJsonObject();
+                query = userData.get("query").getAsJsonObject(); // query details
+                int count = query.get("count").getAsInt();
+                results = query.get("results").getAsJsonObject(); //result details
+                playerList = (JsonArray) results.get("player"); //result details
+                for (JsonElement leauge : playerList) {
+                    Player tempLeauge = gson.fromJson(leauge, Player.class);
+                    leaguePlayerResults.add(tempLeauge);
+                }
+                start += count;
+                Logger.getLogger(PlayerService.class.getName()).log(Level.INFO, "Start Count : " + start);
+                if (count < 25) {
+                    morePlayers = false;
+                }
+
+            } catch (Exception e) {
+                Logger.getLogger(PlayerService.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return leaguePlayerResults;
+    }
 }
