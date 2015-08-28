@@ -34,7 +34,7 @@ package com.yahoo.objects.players;
      private String image_url;
      private String is_undroppable;
      private String position_type;
-     private List<Position> eligible_positions;
+     private transient  List<Position> eligible_positions;
      private String has_player_notes;
      private String has_recent_player_notes;
      private String status;
