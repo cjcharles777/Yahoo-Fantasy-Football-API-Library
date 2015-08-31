@@ -19,7 +19,7 @@ package com.yahoo.objects.players;
  public class Player implements Serializable
  {
 
-     private int id;
+     private Integer id;
      private String player_key;
      private String player_id;
      private Name name;
@@ -46,12 +46,12 @@ package com.yahoo.objects.players;
 
 
 
-     public int getId()
+     public Integer getId()
      {
          return id;
      }
 
-     public void setId(int id) {
+     public void setId(Integer id) {
          this.id = id;
      }
 

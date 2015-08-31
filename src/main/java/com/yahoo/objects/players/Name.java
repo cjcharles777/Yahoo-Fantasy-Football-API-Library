@@ -12,7 +12,7 @@ package com.yahoo.objects.players;
  */
 public class Name
 {
-    private int id;
+    private Integer id;
     private String full;
     private String first;
     private String last;
