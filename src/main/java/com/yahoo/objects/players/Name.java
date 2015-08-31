@@ -12,18 +12,18 @@ package com.yahoo.objects.players;
  */
 public class Name
 {
-    private int id;
+    private Integer id;
     private String full;
     private String first;
     private String last;
     private String ascii_first;
     private String ascii_last;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
     
