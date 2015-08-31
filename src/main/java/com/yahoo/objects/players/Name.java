@@ -19,11 +19,11 @@ public class Name
     private String ascii_first;
     private String ascii_last;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
     
