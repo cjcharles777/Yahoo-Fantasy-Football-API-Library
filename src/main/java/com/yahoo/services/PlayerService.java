@@ -2,6 +2,7 @@ package com.yahoo.services;
 
 import com.google.gson.*;
 import com.yahoo.objects.players.Player;
+import com.yahoo.objects.players.Position;
 import com.yahoo.objects.stats.SeasonStat;
 import com.yahoo.utils.json.JacksonPojoMapper;
 import com.yahoo.utils.yql.YQLQueryUtil;
@@ -82,9 +83,25 @@ public class PlayerService extends BaseService
                 int count = query.get("count").getAsInt();
                 results = query.get("results").getAsJsonObject(); //result details
                 playerList = (JsonArray) results.get("player"); //result details
-                for (JsonElement leauge : playerList) {
-                    Player tempLeauge = gson.fromJson(leauge, Player.class);
-                    leaguePlayerResults.add(tempLeauge);
+                for (JsonElement leaugePlayerJsonElement : playerList) {
+                    Player tempLeaugePlayer = gson.fromJson(leaugePlayerJsonElement, Player.class);
+                    List<Position> tempLeaugePlayerPositionList = new LinkedList<Position>();
+                    JsonObject playerJsonObj = leaugePlayerJsonElement.getAsJsonObject();
+                    JsonElement elegiblePositonsJsonElement = playerJsonObj.get("eligible_positions").getAsJsonObject().get("position");
+
+                    if(elegiblePositonsJsonElement.isJsonArray())
+                    {
+                        for(JsonElement positionElement : elegiblePositonsJsonElement.getAsJsonArray())
+                        {
+                            tempLeaugePlayerPositionList.add(new Position(positionElement.getAsString()));
+                        }
+                    }
+                    else
+                    {
+                        tempLeaugePlayerPositionList.add(new Position(elegiblePositonsJsonElement.getAsString()));
+                    }
+                    tempLeaugePlayer.setEligible_positions(tempLeaugePlayerPositionList);
+                    leaguePlayerResults.add(tempLeaugePlayer);
                 }
                 start += count;
                 Logger.getLogger(PlayerService.class.getName()).log(Level.INFO, "Start Count : " + start);

@@ -16,8 +16,14 @@ public class Position implements Serializable
 {
     private String position;
     private Integer id;
-    
-    
+
+    public Position() {
+    }
+
+    public Position(String position) {
+        this.position = position;
+    }
+
     public Integer getId()
     {
         return id;
