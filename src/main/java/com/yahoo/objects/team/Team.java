@@ -34,6 +34,7 @@ public class Team
     private Managers managers;
     private List<Player> teamPlayers;
     private TeamStandings standings;
+    private String league_scoring_type;
 
     public String getTeam_key() {
         return team_key;
@@ -313,5 +314,12 @@ public class Team
     public void setClinched_playoffs(String clinched_playoffs) {
         this.clinched_playoffs = clinched_playoffs;
     }
-    
+
+    public String getLeague_scoring_type() {
+        return league_scoring_type;
+    }
+
+    public void setLeague_scoring_type(String league_scoring_type) {
+        this.league_scoring_type = league_scoring_type;
+    }
 }
