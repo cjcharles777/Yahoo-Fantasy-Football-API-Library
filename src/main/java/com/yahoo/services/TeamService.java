@@ -50,12 +50,15 @@ public class TeamService extends BaseService
     {
 
         List<Team> result = new LinkedList<Team>();
-        String yql = "select * from fantasysports.teams where league_key='" + leagueKey + "'";
+        String yql = "select * from fantasysports.leagues.standings where league_key='" + leagueKey + "'";
         ObjectMapper mapper = new ObjectMapper();
         try
         {
             Map<String, Object> results = performYQLQuery(yql); //result details
-            List<Map<String, Object>> teamList = (List<Map<String, Object>>) results.get("team"); //result details
+            Map<String, Object> league = (Map<String, Object>) results.get("league"); //result details
+            Map<String, Object> standings = (Map<String, Object>) league.get("standings"); //result details
+            Map<String, Object> teams = (Map<String, Object>) standings.get("teams"); //result details
+            List<Map<String, Object>> teamList = (List<Map<String, Object>>) teams.get("team"); //result details
             for (Map teamMap : teamList)
             {
                 result.add(mapper.readValue(JacksonPojoMapper.toJson(teamMap, false), Team.class));

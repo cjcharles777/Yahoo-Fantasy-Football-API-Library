@@ -33,7 +33,8 @@ public class Team
     private RosterAdds roster_adds;
     private Managers managers;
     private List<Player> teamPlayers;
-    private TeamStandings standings;
+    private TeamStandings team_standings;
+    private TeamPoints team_points;
     private String league_scoring_type;
 
     public String getTeam_key() {
@@ -103,11 +104,11 @@ public class Team
     }
 
     public TeamStandings getStandings() {
-        return standings;
+        return team_standings;
     }
 
     public void setStandings(TeamStandings standings) {
-        this.standings = standings;
+        this.team_standings = standings;
     }
     
     
@@ -321,5 +322,21 @@ public class Team
 
     public void setLeague_scoring_type(String league_scoring_type) {
         this.league_scoring_type = league_scoring_type;
+    }
+
+    public TeamPoints getTeam_points() {
+        return team_points;
+    }
+
+    public void setTeam_points(TeamPoints team_points) {
+        this.team_points = team_points;
+    }
+
+    public TeamStandings getTeam_standings() {
+        return team_standings;
+    }
+
+    public void setTeam_standings(TeamStandings team_standings) {
+        this.team_standings = team_standings;
     }
 }
