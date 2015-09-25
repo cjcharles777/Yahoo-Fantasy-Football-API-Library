@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author cedric
  */
-@JsonIgnoreProperties({"managers", "divisional_outcome_totals"})
+@JsonIgnoreProperties({"managers"})
 public class Team 
 {
     private String gameKey;
