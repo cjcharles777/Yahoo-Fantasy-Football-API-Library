@@ -14,6 +14,7 @@ public class LeagueTransaction
     private String trader_team_name;
     private String tradee_team_key;
     private String tradee_team_name;
+    private String faab_bid;
     private TransactionPickList picks;
     private TransactionPlayersList players;
 
@@ -103,5 +104,13 @@ public class LeagueTransaction
 
     public void setPicks(TransactionPickList picks) {
         this.picks = picks;
+    }
+
+    public String getFaab_bid() {
+        return faab_bid;
+    }
+
+    public void setFaab_bid(String faab_bid) {
+        this.faab_bid = faab_bid;
     }
 }

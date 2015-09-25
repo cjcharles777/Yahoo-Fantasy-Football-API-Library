@@ -4,6 +4,8 @@
  */
 package com.yahoo.objects.league;
 
+import com.yahoo.objects.league.transactions.LeagueDivisionList;
+
 /**
  *
  * @author cedric
@@ -43,8 +45,19 @@ public class LeagueSettings
 
 
       private LeagueRosterPositionList roster_positions;
+      private LeagueDivisionList divisions;
+
       private LeagueStatCategories stat_categories;
       private LeagueStatModifier stat_modifiers;
+
+
+    public LeagueDivisionList getDivisions() {
+        return divisions;
+    }
+
+    public void setDivisions(LeagueDivisionList divisions) {
+        this.divisions = divisions;
+    }
 
 
     public String getDraft_type() {

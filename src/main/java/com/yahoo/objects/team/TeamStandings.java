@@ -4,6 +4,10 @@
  */
 package com.yahoo.objects.team;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+import java.util.List;
+
 /**
  *
  * @author cedric
@@ -15,6 +19,8 @@ public class TeamStandings
   private TeamStreak streak;
   private String points_for;
   private String points_against;
+
+  private TeamDivisionalStandingsList divisional_outcome_totals;
 
     public String getRank() {
         return rank;
@@ -56,7 +62,15 @@ public class TeamStandings
         this.points_against = points_against;
     }
 
-  
+    public TeamDivisionalStandingsList getDivisional_outcome_totals() {
+        return divisional_outcome_totals;
+    }
+
+    public void setDivisional_outcome_totals(TeamDivisionalStandingsList divisional_outcome_totals) {
+        this.divisional_outcome_totals = divisional_outcome_totals;
+    }
+
+
     public static class TeamOutcome {
         private String wins;
         private String losses;
