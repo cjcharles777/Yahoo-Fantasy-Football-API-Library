@@ -24,10 +24,12 @@ public class Team
     private String name;
     private String url;
     private String teamLogoUrl;
+    private String division_id;
     private String is_owned_by_current_login;
     private TeamLogo  team_logos;
     private String waiver_priority;
     private String number_of_moves;
+    private String faab_balance;
     private String number_of_trades;
     private String clinched_playoffs;
     private RosterAdds roster_adds;
@@ -36,6 +38,7 @@ public class Team
     private TeamStandings team_standings;
     private TeamPoints team_points;
     private String league_scoring_type;
+
 
     public String getTeam_key() {
         return team_key;
@@ -110,8 +113,24 @@ public class Team
     public void setStandings(TeamStandings standings) {
         this.team_standings = standings;
     }
-    
-    
+
+    public String getDivision_id() {
+        return division_id;
+    }
+
+    public void setDivision_id(String division_id) {
+        this.division_id = division_id;
+    }
+
+
+    public String getFaab_balance() {
+        return faab_balance;
+    }
+
+    public void setFaab_balance(String faab_balance) {
+        this.faab_balance = faab_balance;
+    }
+
     
         @Override
     public String toString()
