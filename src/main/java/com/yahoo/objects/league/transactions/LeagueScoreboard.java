@@ -8,7 +8,7 @@ import java.util.List;
  * Created by cedric on 12/31/14.
  */
 public class LeagueScoreboard
-{
+{ //TODO: Yahoo has overhauled this object and the structure has changed follow permalink http://www.jsonmate.com/permalink/560826a29ac68be5660e7242
     private String week;
     private List<LeagueMatchup> matchups;
 

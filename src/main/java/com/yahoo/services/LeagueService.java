@@ -182,6 +182,20 @@ public class LeagueService extends BaseService
     {
         String yql = "select * from fantasysports.leagues.scoreboard where league_key='"+leagueId+"' and week = '"+week+"'";
         LeagueScoreboard result = new LeagueScoreboard();
+        try
+        {
+
+
+            ObjectMapper mapper = new ObjectMapper();
+            Map<String, Object> results = performYQLQuery(yql);
+            Map leagueMap = (Map<String, Object>)results.get("league"); //result details
+            Map scoreboardMap = (Map<String, Object>)leagueMap.get("scoreboard"); //standings yahoo object
+            result = mapper.readValue(JacksonPojoMapper.toJson(scoreboardMap, false), LeagueScoreboard.class);
+        }
+        catch(Exception e)
+        {
+            Logger.getLogger(LeagueService.class.getName()).log(Level.SEVERE, null, e);
+        }
 
         return result;
     }
