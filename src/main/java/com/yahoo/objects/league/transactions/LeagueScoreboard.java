@@ -1,6 +1,7 @@
 package com.yahoo.objects.league.transactions;
 
 import com.yahoo.objects.league.LeagueMatchup;
+import com.yahoo.objects.league.LeagueMatchupList;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
 public class LeagueScoreboard
 { //TODO: Yahoo has overhauled this object and the structure has changed follow permalink http://www.jsonmate.com/permalink/560826a29ac68be5660e7242
     private String week;
-    private List<LeagueMatchup> matchups;
+    private LeagueMatchupList matchups;
 
     public String getWeek() {
         return week;
@@ -20,11 +21,11 @@ public class LeagueScoreboard
         this.week = week;
     }
 
-    public List<LeagueMatchup> getMatchups() {
+    public LeagueMatchupList getMatchups() {
         return matchups;
     }
 
-    public void setMatchups(List<LeagueMatchup> matchups) {
+    public void setMatchups(LeagueMatchupList matchups) {
         this.matchups = matchups;
     }
 }

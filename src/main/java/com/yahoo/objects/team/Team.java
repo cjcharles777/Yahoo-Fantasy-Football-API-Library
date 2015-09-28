@@ -37,6 +37,7 @@ public class Team
     private List<Player> teamPlayers;
     private TeamStandings team_standings;
     private TeamPoints team_points;
+    private TeamPoints team_projected_points;
     private String league_scoring_type;
 
 
@@ -357,5 +358,13 @@ public class Team
 
     public void setTeam_standings(TeamStandings team_standings) {
         this.team_standings = team_standings;
+    }
+
+    public TeamPoints getTeam_projected_points() {
+        return team_projected_points;
+    }
+
+    public void setTeam_projected_points(TeamPoints team_projected_points) {
+        this.team_projected_points = team_projected_points;
     }
 }
