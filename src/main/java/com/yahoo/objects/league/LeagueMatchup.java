@@ -18,6 +18,7 @@ public class LeagueMatchup
     private String is_consolation;
     private String is_tied;
     private String winner_team_key;
+    private String is_matchup_recap_available;
     private TeamList teams;
 
     public String getWeek() {
@@ -90,5 +91,13 @@ public class LeagueMatchup
 
     public void setTeams(TeamList teams) {
         this.teams = teams;
+    }
+
+    public String getIs_matchup_recap_available() {
+        return is_matchup_recap_available;
+    }
+
+    public void setIs_matchup_recap_available(String is_matchup_recap_available) {
+        this.is_matchup_recap_available = is_matchup_recap_available;
     }
 }

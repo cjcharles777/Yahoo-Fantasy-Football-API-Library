@@ -4,8 +4,8 @@
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="fileset" name="Spring Application Context" removed="false">
-          <file>file://$MODULE_DIR$/src/main/resources/app-config.xml</file>
           <file>file://$MODULE_DIR$/src/main/resources/db-config.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/app-config.xml</file>
         </fileset>
       </configuration>
     </facet>
@@ -19,7 +19,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.8.5" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-core-asl:1.8.5" level="project" />
