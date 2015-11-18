@@ -76,7 +76,7 @@ public class YQLQueryUtil
                     {
                         if (!TimeUtil.isDataStale(result.getCreated(),daysTilStale))
                         {
-                            return results.get(0).getResponse();
+                            return result.getResponse();
                         }
                         else
                         {
