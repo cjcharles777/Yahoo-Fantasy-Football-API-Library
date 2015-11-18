@@ -70,18 +70,28 @@ public class YQLQueryUtil
                 YQLQuery attemptedQuery = new YQLQuery();
                 attemptedQuery.setQuery(query);
                 List<YQLQuery> results = yqlQueryDAO.retrieveQuerybyExample(attemptedQuery);
-                if(results.size()>0 && !TimeUtil.isDataStale(results.get(0).getCreated(),daysTilStale))
+                if(results.size()>0)
                 {
-                    return results.get(0).getResponse();
+                    for(YQLQuery result : results)
+                    {
+                        if (!TimeUtil.isDataStale(result.getCreated(),daysTilStale))
+                        {
+                            return results.get(0).getResponse();
+                        }
+                        else
+                        {
+                            yqlQueryDAO.deleteQuery(result);
+                        }
+                    }
+
                 }
-                else
-                {
+
                     QueryResult qr = api.query(query, authdata);
                     attemptedQuery.setResponse(qr.getText());
                     attemptedQuery.setCreated(new Date());
                     yqlQueryDAO.saveQuery(attemptedQuery);
                     return qr.getText();
-                }
+
 
             }
             else
