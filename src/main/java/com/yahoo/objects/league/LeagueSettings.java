@@ -42,7 +42,7 @@ public class LeagueSettings
       private String uses_fractional_points;
       private String uses_negative_points;
       private String draft_pick_time;
-
+      private String has_multiweek_championship;
 
       private LeagueRosterPositionList roster_positions;
       private LeagueDivisionList divisions;
@@ -325,5 +325,13 @@ public class LeagueSettings
 
     public void setDraft_pick_time(String draft_pick_time) {
         this.draft_pick_time = draft_pick_time;
+    }
+
+    public String getHas_multiweek_championship() {
+        return has_multiweek_championship;
+    }
+
+    public void setHas_multiweek_championship(String has_multiweek_championship) {
+        this.has_multiweek_championship = has_multiweek_championship;
     }
 }
