@@ -38,6 +38,7 @@ public class League
     private String  password;
     private String game_code;
     private String season;
+    private String is_cash_league;
      
 
     public int getId() {
@@ -291,9 +292,15 @@ public class League
         }
         return true;
     }
-    
-    
-     
+
+    public String getIs_cash_league() {
+        return is_cash_league;
+    }
+
+    public void setIs_cash_league(String is_cash_league) {
+        this.is_cash_league = is_cash_league;
+    }
+
     @Override
     public String toString()
     {
