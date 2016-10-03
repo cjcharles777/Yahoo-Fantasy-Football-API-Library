@@ -39,6 +39,8 @@ public class League
     private String game_code;
     private String season;
     private String is_cash_league;
+    private String payment_deadline;
+    private String  entry_fee;
      
 
     public int getId() {
@@ -267,6 +269,14 @@ public class League
         this.season = season;
     }
 
+    public String getEntry_fee() {
+        return entry_fee;
+    }
+
+    public void setEntry_fee(String entry_fee) {
+        this.entry_fee = entry_fee;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -299,6 +309,14 @@ public class League
 
     public void setIs_cash_league(String is_cash_league) {
         this.is_cash_league = is_cash_league;
+    }
+
+    public String getPayment_deadline() {
+        return payment_deadline;
+    }
+
+    public void setPayment_deadline(String payment_deadline) {
+        this.payment_deadline = payment_deadline;
     }
 
     @Override
