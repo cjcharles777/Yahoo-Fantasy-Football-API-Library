@@ -39,7 +39,10 @@ public class Team
     private TeamPoints team_points;
     private TeamPoints team_projected_points;
     private String league_scoring_type;
-
+    private String  team_paid;
+    private String has_draft_grade;
+    private String draft_grade;
+    private String draft_recap_url;
 
     public String getTeam_key() {
         return team_key;
@@ -366,5 +369,37 @@ public class Team
 
     public void setTeam_projected_points(TeamPoints team_projected_points) {
         this.team_projected_points = team_projected_points;
+    }
+
+    public String getTeam_paid() {
+        return team_paid;
+    }
+
+    public void setTeam_paid(String team_paid) {
+        this.team_paid = team_paid;
+    }
+
+    public String getHas_draft_grade() {
+        return has_draft_grade;
+    }
+
+    public void setHas_draft_grade(String has_draft_grade) {
+        this.has_draft_grade = has_draft_grade;
+    }
+
+    public String getDraft_grade() {
+        return draft_grade;
+    }
+
+    public void setDraft_grade(String draft_grade) {
+        this.draft_grade = draft_grade;
+    }
+
+    public String getDraft_recap_url() {
+        return draft_recap_url;
+    }
+
+    public void setDraft_recap_url(String draft_recap_url) {
+        this.draft_recap_url = draft_recap_url;
     }
 }

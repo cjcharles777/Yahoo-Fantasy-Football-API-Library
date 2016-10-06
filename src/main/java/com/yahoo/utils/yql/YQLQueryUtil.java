@@ -65,7 +65,7 @@ public class YQLQueryUtil
         { 
             if(conn.isAuthorized())
             {
-                Logger.getLogger(YQLQueryUtil.class.getName()).log(Level.SEVERE, query);
+                Logger.getLogger(YQLQueryUtil.class.getName()).log(Level.INFO, query);
                 String authdata = conn.getAccessToken().getToken() + AUTHDATA_SEPARATOR+ conn. getAccessToken().getSecret() + AUTHDATA_SEPARATOR + conn.getOauthSessionHandle();
                 YQLQuery attemptedQuery = new YQLQuery();
                 attemptedQuery.setQuery(query);
