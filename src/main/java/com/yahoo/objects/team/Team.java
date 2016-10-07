@@ -43,6 +43,7 @@ public class Team
     private String has_draft_grade;
     private String draft_grade;
     private String draft_recap_url;
+    private String draft_position;
 
     public String getTeam_key() {
         return team_key;
@@ -401,5 +402,13 @@ public class Team
 
     public void setDraft_recap_url(String draft_recap_url) {
         this.draft_recap_url = draft_recap_url;
+    }
+
+    public String getDraft_position() {
+        return draft_position;
+    }
+
+    public void setDraft_position(String draft_position) {
+        this.draft_position = draft_position;
     }
 }
